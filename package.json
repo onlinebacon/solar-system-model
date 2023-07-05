@@ -1,0 +1,21 @@
+{
+  "name": "solar-system-model",
+  "version": "1.0.0",
+  "description": "This is my attempt of creating a solar system model that is accurate for a range of a couple of\r years.\r The idea is to demonstrate that simply with some initial conditions it is possible to predict\r eclipses and the retrogrades of planets years in the future.\r I'll be running an n-body simulation of the solar system.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/onlinebacon/solar-system-model.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/onlinebacon/solar-system-model/issues"
+  },
+  "homepage": "https://github.com/onlinebacon/solar-system-model#readme"
+}
