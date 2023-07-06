@@ -50,19 +50,19 @@ export default class Mat4 extends Array {
 			}
 		}
 	}
-	rotX(angle, dst = this) {
+	rotX(angle, dst = new Mat4()) {
 		rotMat4(this, angle, Z, Y, dst);
 		return dst;
 	}
-	rotY(angle, dst = this) {
+	rotY(angle, dst = new Mat4()) {
 		rotMat4(this, angle, X, Z, dst);
 		return dst;
 	}
-	rotZ(angle, dst = this) {
+	rotZ(angle, dst = new Mat4()) {
 		rotMat4(this, angle, Y, X, dst);
 		return dst;
 	}
-	move([ x, y, z ], dst = this) {
+	move([ x, y, z ], dst = new Mat4()) {
 		if (dst !== this) {
 			copy(this, dst, 16);
 		}

@@ -1,27 +1,5 @@
 import Mat4 from '../src/mat4.js';
-
-const equals = (a, b) => {
-	if (a.length !== b.length) {
-		return false;
-	}
-	for (let i=0; i<a.length; i++) {
-		if (a[i] !== b[i]) {
-			return false;
-		}
-	}
-	return true;
-};
-
-const approximates = (arr1, arr2, error) => {
-	if (arr1.length !== arr2.length) return false;
-	for (let i=0; i<arr1.length; ++i) {
-		const a = arr1[i];
-		const b = arr2[i];
-		const e = Math.abs(a - b);
-		if (e > error) return false;
-	}
-	return true;
-};
+import { runTests, assert } from './test.js';
 
 const tests = [{
 	name: 'Test constructor',
@@ -33,7 +11,7 @@ const tests = [{
 			0, 0, 0, 1,
 		]
 		const actual = new Mat4();
-		return equals(expected, actual);
+		assert.equals(expected, actual);
 	},
 }, {
 	name: 'Test rotations',
@@ -47,7 +25,7 @@ const tests = [{
 			         0,          0,          0, 1,
 		];
 		const actual = m.rotX(x).rotY(y).rotZ(z);
-		return approximates(expected, actual, 1e-6);
+		assert.approximates(expected, actual, 1e-6);
 	},
 }, {
 	name: 'Test translation',
@@ -60,22 +38,8 @@ const tests = [{
 			3, 7, 9, 1,
 		];
 		const actual = m.move([ 3, 7, 9 ]);
-		return equals(expected, actual);
+		assert.equals(expected, actual);
 	},
 }];
 
-let someFailed = false;
-for (const { name, run } of tests) {
-	if (run()) {
-		console.log(`${name}: Ok`);
-	} else {
-		someFailed = true;
-		console.error(`${name}: Fail`);
-	}
-}
-if (someFailed) {
-	console.error('Fail');
-	process.exit(1);
-} else {
-	console.log('Pass');
-}
+runTests(tests);

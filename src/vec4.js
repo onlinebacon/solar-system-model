@@ -37,15 +37,15 @@ export default class Vec4 extends Array {
 			}
 		}
 	}
-	rotX(angle, dst = this) {
+	rotX(angle, dst = new Vec4()) {
 		rotVec4(this, angle, Z, Y, dst);
 		return dst;
 	}
-	rotY(angle, dst = this) {
+	rotY(angle, dst = new Vec4()) {
 		rotVec4(this, angle, X, Z, dst);
 		return dst;
 	}
-	rotZ(angle, dst = this) {
+	rotZ(angle, dst = new Vec4()) {
 		rotVec4(this, angle, Y, X, dst);
 		return dst;
 	}

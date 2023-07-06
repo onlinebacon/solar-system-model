@@ -1,20 +1,28 @@
+import Vec3 from './Vec3.js';
+
 let G = 6.6743e-11;
 let dt = 1;
 let it = 0;
 
-let bodyMap = {};
 const bodies = true ? [] : [ new Body() ];
 
 class Body {
 	constructor() {
 		this.mass = 1;
-		this.radius = 1;
 		this.x = 0;
 		this.y = 0;
 		this.z = 0;
 		this.vx = 0;
 		this.vy = 0;
 		this.vz = 0;
+	}
+	get position() {
+		const { x, y, z } = this;
+		return new Vec3([ x, y, z ]);
+	}
+	get velocity() {
+		const { vx, vy, vz } = this;
+		return new Vec3([ vx, vy, vz ]);
 	}
 	setPos([ x, y, z ]) {
 		this.x = x;
@@ -55,7 +63,13 @@ class Body {
 	}
 }
 
-export const reset = () => {
+export const clear = ({ G: gVal, dt: dtVal } = {}) => {
+	if (gVal != null) {
+		G = gVal;
+	}
+	if (dtVal != null) {
+		dt = dtVal;
+	}
 	it = 0;
 	bodies.length = 0;
 };
@@ -77,12 +91,15 @@ export const runUntil = (timeOffset) => {
 	}
 };
 
-export const addBody = ({ name, mass, radius, position, velocity }) => {
+export const addBody = ({
+	mass = 1,
+	position = [ 0, 0, 0 ],
+	velocity = [ 0, 0, 0 ],
+}) => {
 	const body = new Body();
 	body.mass = mass;
-	body.radius = radius;
 	body.setPos(position);
 	body.setVel(velocity);
 	bodies.push(body);
-	bodyMap[name] = body;
+	return body;
 };

@@ -52,19 +52,19 @@ export default class Vec3 extends Array {
 			}
 		}
 	}
-	rotX(angle, dst = this) {
+	rotX(angle, dst = new Vec3()) {
 		rotVec(this, angle, Z, Y, dst);
 		return dst;
 	}
-	rotY(angle, dst = this) {
+	rotY(angle, dst = new Vec3()) {
 		rotVec(this, angle, X, Z, dst);
 		return dst;
 	}
-	rotZ(angle, dst = this) {
+	rotZ(angle, dst = new Vec3()) {
 		rotVec(this, angle, Y, X, dst);
 		return dst;
 	}
-	mulMat3(mat, dst = this) {
+	mulMat3(mat, dst = new Vec3()) {
 		mulVec3Mat3(this, mat, dst);
 		return dst;
 	}
@@ -76,9 +76,18 @@ export default class Vec3 extends Array {
 		const [ x, y, z ] = this;
 		const temp = x*x + y*y;
 		const nz = z/Math.sqrt(temp + z*z);
-		const ny = y/Math.sqrt(temp);
 		const alt = Math.asin(nz);
-		const azm = x >= 0 ? Math.acos(ny) : Math.PI*2 - Math.acos(ny);
-		return [ alt, azm ];
+		let azm = 0;
+		if (temp !== 0) {
+			const ny = y/Math.sqrt(temp);
+			azm = x >= 0 ? Math.acos(ny) : Math.PI*2 - Math.acos(ny);
+		}
+		return [ azm, alt ];
+	}
+	sub([ x, y, z ], dst = new Vec3()) {
+		dst[0] = this[0] - x;
+		dst[1] = this[1] - y;
+		dst[2] = this[2] - z;
+		return dst;
 	}
 }
