@@ -52,7 +52,8 @@ const approximates = (va, vb, error) => {
 	}
 };
 
-export const runTests = (tests) => {
+export const runTests = (file, tests) => {
+	console.log('Testing', file);
 	let someFailed = false;
 	for (const { name, run } of tests) {
 		current_test_failed = false;

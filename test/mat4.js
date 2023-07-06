@@ -17,7 +17,7 @@ const tests = [{
 	name: 'Test rotations',
 	run: () => {
 		const m = new Mat4();
-		const [ x, y, z ] = [ 10, 15, 20 ].map(val => val/180*Math.PI);
+		const [ x, y, z ] = [ 10, 15, 20 ];
 		const expected = [
 			 0.9076734, -0.3303661,  0.2588190, 0,
 			 0.3790571,  0.9100450, -0.1677313, 0,
@@ -37,9 +37,9 @@ const tests = [{
 			0, 0, 1, 0,
 			3, 7, 9, 1,
 		];
-		const actual = m.move([ 3, 7, 9 ]);
+		const actual = m.translate([ 3, 7, 9 ]);
 		assert.equals(expected, actual);
 	},
 }];
 
-runTests(tests);
+runTests('mat4.js', tests);

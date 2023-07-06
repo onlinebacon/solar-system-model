@@ -24,6 +24,17 @@ const rotVec4 = (vec, angle, aAxis, bAxis, dst) => {
 	copy(tempArr, dst);
 };
 
+const mulVecMat = (vec, mat, dst) => {
+	for (let i=0; i<4; ++i) {
+		let sum = 0;
+		for (let j=0; j<4; ++j) {
+			sum += vec[j]*mat[j*4 + i];
+		}
+		tempArr[i] = sum;
+	}
+	copy(tempArr, dst);
+};
+
 export default class Vec4 extends Array {
 	constructor(args) {
 		super(4);
@@ -47,6 +58,10 @@ export default class Vec4 extends Array {
 	}
 	rotZ(angle, dst = new Vec4()) {
 		rotVec4(this, angle, Y, X, dst);
+		return dst;
+	}
+	mulMat(mat, dst = new Vec4()) {
+		mulVecMat(this, mat, dst);
 		return dst;
 	}
 }

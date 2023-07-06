@@ -1,3 +1,5 @@
+import * as Trig from './trig.js';
+
 const X = 0;
 const Y = 1;
 const Z = 2;
@@ -22,8 +24,8 @@ const mulVec3Mat3 = (vec, mat, dst) => {
 };
 
 const rotVec = (vec, angle, aAxis, bAxis, dst) => {
-	const sin = Math.sin(angle);
-	const cos = Math.cos(angle);
+	const sin = Trig.sin(angle);
+	const cos = Trig.cos(angle);
 	for (let i=0; i<3; ++i) {
 		switch (i) {
 		case aAxis:
@@ -76,11 +78,11 @@ export default class Vec3 extends Array {
 		const [ x, y, z ] = this;
 		const temp = x*x + y*y;
 		const nz = z/Math.sqrt(temp + z*z);
-		const alt = Math.asin(nz);
+		const alt = Trig.asin(nz);
 		let azm = 0;
 		if (temp !== 0) {
 			const ny = y/Math.sqrt(temp);
-			azm = x >= 0 ? Math.acos(ny) : Math.PI*2 - Math.acos(ny);
+			azm = x >= 0 ? Trig.acos(ny) : Trig.D360 - Trig.acos(ny);
 		}
 		return [ azm, alt ];
 	}
@@ -88,6 +90,12 @@ export default class Vec3 extends Array {
 		dst[0] = this[0] - x;
 		dst[1] = this[1] - y;
 		dst[2] = this[2] - z;
+		return dst;
+	}
+	neg(dst = new Vec3()) {
+		dst[0] = - this[0];
+		dst[1] = - this[1];
+		dst[2] = - this[2];
 		return dst;
 	}
 }

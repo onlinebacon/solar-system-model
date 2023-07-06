@@ -3,6 +3,7 @@ import Vec3 from './Vec3.js';
 let G = 6.6743e-11;
 let dt = 1;
 let it = 0;
+let t0 = 0;
 
 const bodies = true ? [] : [ new Body() ];
 
@@ -63,20 +64,57 @@ class Body {
 	}
 }
 
-export const clear = ({ G: gVal, dt: dtVal } = {}) => {
-	if (gVal != null) {
-		G = gVal;
+class BodyConfig {
+	constructor() {
+		this.mass = 1;
+		this.position = [ 0, 0, 0 ];
+		this.velocity = [ 0, 0, 0 ];
 	}
-	if (dtVal != null) {
-		dt = dtVal;
+}
+
+class InitConfig {
+	constructor() {
+		this.time = 1;
+		this.dt = 1;
+		this.G = 6.6743e-11;
+		this.bodies = [ new BodyConfig() ];
 	}
-	it = 0;
-	bodies.length = 0;
+}
+
+const addBody = ({
+	mass = 1,
+	position = [ 0, 0, 0 ],
+	velocity = [ 0, 0, 0 ],
+}) => {
+	const body = new Body();
+	body.mass = mass;
+	body.setPos(position);
+	body.setVel(velocity);
+	bodies.push(body);
+	return body;
 };
 
-export const runUntil = (timeOffset) => {
+export const init = (config = new InitConfig()) => {
+	dt = config.dt ?? dt;
+	t0 = config.time ?? t0;
+	G = config.G ?? G;
+	it = 0;
+	bodies.length = 0;
+	const res = {};
+	Object.entries(config.bodies).forEach(([ name, config ]) => {
+		res[name] = addBody(config);
+	});
+	return res;
+};
+
+export const getTimeOffset = (time) => {
+	return time - t0;
+};
+
+export const runUntil = (time) => {
 	const n = bodies.length;
-	while (it*dt < timeOffset) {
+	const offset = getTimeOffset(time);
+	while (it*dt < offset) {
 		for (let i=1; i<n; ++i) {
 			const a = bodies[i];
 			for (let j=0; j<i; ++j) {
@@ -89,17 +127,4 @@ export const runUntil = (timeOffset) => {
 		}
 		++ it;
 	}
-};
-
-export const addBody = ({
-	mass = 1,
-	position = [ 0, 0, 0 ],
-	velocity = [ 0, 0, 0 ],
-}) => {
-	const body = new Body();
-	body.mass = mass;
-	body.setPos(position);
-	body.setVel(velocity);
-	bodies.push(body);
-	return body;
 };

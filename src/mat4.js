@@ -1,3 +1,5 @@
+import * as Trig from './trig.js';
+
 const X = 0;
 const Y = 1;
 const Z = 2;
@@ -16,8 +18,8 @@ const copy = (src, dst, n) => {
 };
 
 const rotMat4 = (mat, angle, aAxis, bAxis, dst) => {
-	const sin = Math.sin(angle);
-	const cos = Math.cos(angle);
+	const sin = Trig.sin(angle);
+	const cos = Trig.cos(angle);
 	for (let i=0; i<4; ++i) {
 		const base = i*4;
 		for (let j=0; j<4; ++j) {
@@ -62,7 +64,7 @@ export default class Mat4 extends Array {
 		rotMat4(this, angle, Y, X, dst);
 		return dst;
 	}
-	move([ x, y, z ], dst = new Mat4()) {
+	translate([ x, y, z ], dst = new Mat4()) {
 		if (dst !== this) {
 			copy(this, dst, 16);
 		}
