@@ -32,3 +32,5 @@ const getObservations = (time, lat, lon) => {
 	console.log(res);
 	return res;
 };
+
+getObservations(observations[0].time, 0, 0);

@@ -6,9 +6,9 @@ const date = (str) => {
 
 const angle = (str) => {
 	str = str.trim();
-	const sign = /^[-+]/.match(str)?.[0]?.trim();
+	const sign = str.match(/^[-+]/)?.[0]?.trim();
 	str = str.replace(/^[-+]\s*/, '');
-	const abs = str.split(/\s+/).map(val => (val, i) => val*60**-i).reduce((a, b) => a + b, 0);
+	const abs = str.split(/\s+/).map((val, i) => val*60**-i).reduce((a, b) => a + b, 0);
 	return sign === '-' ? - abs : abs;
 };
 
