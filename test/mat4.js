@@ -1,4 +1,4 @@
-import Mat4 from '../src/mat4.js';
+import Mat4 from '../src/js/geometry/mat4.js';
 import { runTests, assert } from './test.js';
 
 const tests = [{

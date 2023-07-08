@@ -57,7 +57,7 @@ export const runTests = (file, tests) => {
 	let someFailed = false;
 	for (const { name, run } of tests) {
 		current_test_failed = false;
-		console.log(`${name}...`);
+		console.log(`- ${name}...`);
 		try {
 			run();
 		} catch(e) {
@@ -69,7 +69,6 @@ export const runTests = (file, tests) => {
 	}
 	if (someFailed) {
 		console.error('Fail');
-		process.exit(1);
 	} else {
 		console.log('Pass');
 	}

@@ -1,12 +1,8 @@
-import * as Trig from './trig.js';
+import * as Trig from '../trig.js';
 
 const X = 0;
 const Y = 1;
 const Z = 2;
-const W = 3;
-const I = 0x0;
-const J = 0x4;
-const K = 0x8;
 const L = 0xC;
 
 const tempArr = new Array(16).fill(0);

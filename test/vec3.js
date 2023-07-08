@@ -1,4 +1,4 @@
-import Vec3 from '../src/vec3.js';
+import Vec3 from '../src/js/geometry/vec3.js';
 import { runTests, assert } from './test.js';
 
 const tests = [{
