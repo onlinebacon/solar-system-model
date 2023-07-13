@@ -52,15 +52,16 @@ const approximates = (va, vb, error) => {
 	}
 };
 
-export const runTests = (file, tests) => {
+export const runTests = async (file, tests) => {
 	console.log('Testing', file);
 	let someFailed = false;
 	for (const { name, run } of tests) {
 		current_test_failed = false;
 		console.log(`- ${name}...`);
 		try {
-			run();
+			await run();
 		} catch(e) {
+			current_test_failed = true;
 			console.error(e);
 		}
 		if (current_test_failed) {

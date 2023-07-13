@@ -1,3 +1,55 @@
 body {
+	font-family: monospace;
+	color: #ccc;
 	background-color: #222;
+}
+.model {
+	width: 1000px;
+	background-color: #333;
+	padding: 10px;
+}
+.model canvas {
+	background-color: #222;
+}
+.model input[type="range"] {
+	width: 100%;
+}
+.var {
+	margin-top: 10px;
+	background-color: #333;
+	display: inline-block;
+	padding: 5px;
+}
+div.var .left,
+div.var .right {
+	display: inline-block;
+	vertical-align: top;
+}
+div.var .left button,
+div.var .left input {
+	margin-top: 3px;
+	width: 100px;
+}
+button {
+	background-color: #444;
+	border: #666;
+	color: #aaa;
+	border-radius: 2px;
+	cursor: pointer;
+	height: 20px;
+}
+div.var .left input {
+	font-size: 10px;
+	font-family: monospace;
+	border: 1px solid #444;
+	background-color: #111;
+	color: #ccc;
+	padding: 2px 2px;
+}
+div.var canvas {
+	background-color: #111;
+	border: 1px solid #333;
+}
+.var-template {
+	display: none;
 }

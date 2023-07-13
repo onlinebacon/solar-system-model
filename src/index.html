@@ -1,6 +1,27 @@
 <html>
 	<head>
-		<link rel="stylesheet" href="./css/style.css">
+		<link rel="stylesheet" href="css/style.css">
+		<script type="module" src="js/main.js"></script>
 	</head>
-	<body></body>
+	<body>
+		<div class="model">
+			<canvas width="1000" height="200"></canvas>
+			<div class="range">
+				<input type="range" min="0" max="99" step="1">
+			</div>
+			<button id="refresh">Refresh</button>
+			<span>Error</span>
+		</div>
+		<div class="var var-template">
+			<div class="left">
+				<div class="label"></div>
+				<div class="max"><input type="text"></div>
+				<div class="min"><input type="text"></div>
+				<button class="shrink">Shrink</button>
+			</div>
+			<div class="right">
+				<canvas width="900" height="80px"></canvas>
+			</div>
+		</div>
+	</body>
 </html>

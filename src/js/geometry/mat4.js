@@ -1,4 +1,4 @@
-import * as Trig from '../trig.js';
+import * as Trig from '../math/trig.js';
 
 const X = 0;
 const Y = 1;

@@ -1,4 +1,4 @@
-import * as Trig from '../trig.js';
+import * as Trig from '../math/trig.js';
 
 const X = 0;
 const Y = 1;
@@ -74,18 +74,6 @@ export default class Vec3 extends Array {
 		const [ x, y, z ] = this;
 		return Math.sqrt(x*x + y*y + z*z);
 	}
-	calcAzmAlt() {
-		const [ x, y, z ] = this;
-		const temp = x*x + y*y;
-		const nz = z/Math.sqrt(temp + z*z);
-		const alt = Trig.asin(nz);
-		let azm = 0;
-		if (temp !== 0) {
-			const ny = y/Math.sqrt(temp);
-			azm = x >= 0 ? Trig.acos(ny) : Trig.D360 - Trig.acos(ny);
-		}
-		return [ azm, alt ];
-	}
 	sub([ x, y, z ], dst = new Vec3()) {
 		dst[0] = this[0] - x;
 		dst[1] = this[1] - y;
@@ -96,6 +84,12 @@ export default class Vec3 extends Array {
 		dst[0] = - this[0];
 		dst[1] = - this[1];
 		dst[2] = - this[2];
+		return dst;
+	}
+	scale(val, dst = new Vec3()) {
+		dst[0] = this[0]*val;
+		dst[1] = this[1]*val;
+		dst[2] = this[2]*val;
 		return dst;
 	}
 }
