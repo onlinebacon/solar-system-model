@@ -11,8 +11,8 @@ body {
 .model canvas {
 	background-color: #222;
 }
-.model input[type="range"] {
-	width: 100%;
+.model .foot {
+	margin-top: 10px;
 }
 .var {
 	margin-top: 10px;
