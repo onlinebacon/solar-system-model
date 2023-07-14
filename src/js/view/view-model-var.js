@@ -55,21 +55,32 @@ export const render = () => {
 export const add = ({ modelVar, onchange }) => {
 	const dom = template.cloneNode(true);
 	const inputMap = {};
-	const fields = [ 'min', 'max' ];
+	const fields = [ 'val', 'range' ];
+	for (const field of fields) {
+		inputMap[field] = dom.querySelector(`.${field} input`);
+	}
 	removeClass(dom, 'var-template');
 	const updateInputs = () => {
-		for (const field of fields) {
-			inputMap[field].value = modelVar[field];
-		}
+		const { min, range } = modelVar;
+		const val = min + range/2;
+		inputMap.val.value = Number(val.toPrecision(12));
+		inputMap.range.value = Number(range.toPrecision(5));
 	};
-	for (const field of fields) {
-		const input = dom.querySelector(`.${field} input`);
-		input.onchange = () => {
-			modelVar[field] = Number(input.value);
-			onchange?.();
-		};
-		inputMap[field] = input;
-	}
+	inputMap.val.onchange = () => {
+		const { range } = modelVar;
+		const val = Number(inputMap.val.value);
+		modelVar.min = val - range/2;
+		modelVar.max = val + range/2;
+		onchange?.();
+	};
+	inputMap.range.onchange = () => {
+		const { min, range } = modelVar;
+		const val = min + range/2;
+		const newRange = Number(inputMap.range.value);
+		modelVar.min = val - newRange/2;
+		modelVar.max = val + newRange/2;
+		onchange?.();
+	};
 	updateInputs();
 	dom.querySelector('.label').innerText = modelVar.label;
 	document.body.appendChild(dom);
@@ -78,10 +89,9 @@ export const add = ({ modelVar, onchange }) => {
 		const nx = e.offsetX/canvas.width;
 		const range = modelVar.range;
 		const val = modelVar.min + nx*range;
-		const min = modelVar.min = val - range/4;
-		const max = modelVar.max = val + range/4;
-		inputMap.min.value = min;
-		inputMap.max.value = max;
+		modelVar.min = val - range/4;
+		modelVar.max = val + range/4;
+		updateInputs();
 		onchange?.();
 	});
 	const ctx = canvas.getContext('2d');
