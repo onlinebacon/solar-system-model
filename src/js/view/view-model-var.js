@@ -14,10 +14,21 @@ const removeClass = (dom, className) => {
 	return dom;
 };
 
+const markLine = (canvas, ctx, modelVar, arg, color) => {
+	const x = (arg - modelVar.min)/modelVar.range*canvas.width;
+	ctx.strokeStyle = color;
+	ctx.beginPath();
+	ctx.moveTo(x, 0);
+	ctx.lineTo(x, canvas.height);
+	ctx.stroke();
+};
+
 export const render = () => {
 	const { models } = ModelManager;
-	const maxErr = ModelManager.getWorst().error;
-	const minErr = ModelManager.getBest().error;
+	const worst = ModelManager.getWorst();
+	const best = ModelManager.getBest();
+	const maxErr = worst.error;
+	const minErr = best.error;
 	const errRange = maxErr - minErr;
 	for (const { modelVar, index, canvas, ctx } of vars) {
 		const { width, height } = canvas;
@@ -37,6 +48,7 @@ export const render = () => {
 			ctx.arc(x, y + (Math.random() - 0.5)*2, 3, 0, Math.PI*2);
 			ctx.fill();
 		}
+		markLine(canvas, ctx, modelVar, best.args[index], '#fff');
 	}
 };
 
