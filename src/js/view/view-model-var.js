@@ -28,9 +28,9 @@ export const render = () => {
 			const arg = model.args[index];
 			const err = model.error;
 			const x = (arg - min)/range*width;
-			const normalErr = 1 - (1 - (err - minErr)/errRange)**2;
-			const channel = Math.round(normalErr*255);
-			const significance = (Math.abs(normalErr - 0.5)*2)**2;
+			const normal = 1 - (1 - (err - minErr)/errRange)**2;
+			const channel = Math.round(normal*255);
+			const significance = (Math.abs(normal - 0.5)*2)**2;
 			const color = `rgba(${channel}, 0, ${255 - channel}, ${significance})`;
 			ctx.fillStyle = color;
 			ctx.beginPath();

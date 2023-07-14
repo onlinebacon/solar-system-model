@@ -10,13 +10,12 @@ export const render = () => {
 	const n = models.length;
 	const minErr = ModelManager.getBest().error;
 	const maxErr = ModelManager.getWorst().error;
-	const errRange = maxErr - minErr;
 	ctx.clearRect(0, 0, width, height);
 	ctx.strokeStyle = '#f70';
 	ctx.beginPath();
 	for (let i=0; i<n; ++i) {
 		const x = i/(n - 1)*width;
-		const normal = 1 - (models[i].error - minErr)/errRange;
+		const normal = 1 - models[i].error/maxErr;
 		const y = normal*height;
 		if (i === 0) {
 			ctx.moveTo(x, y);

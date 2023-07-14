@@ -5,7 +5,7 @@ import * as ErrorPlot from './view/error-plot.js';
 import ModelVar from './model/model-var.js';
 import Model from './model/model.js';
 
-const maxModels = 500;
+const maxModels = 1000;
 
 let paused = false;
 
