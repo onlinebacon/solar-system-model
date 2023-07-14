@@ -25,5 +25,6 @@ export const render = () => {
 	}
 	ctx.stroke();
 	errorSpan.innerText = Number(minErr.toPrecision(5))
-		+ ' - ' + Number(maxErr.toPrecision(5));
+		+ ' - ' + Number(maxErr.toPrecision(5))
+		+ ' (' + models.length + ')';
 };

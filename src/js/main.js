@@ -7,13 +7,36 @@ import Model from './model/model.js';
 
 const maxModels = 1000;
 
+let breeding = false;
 let paused = false;
 
+const breed = () => {
+	const models = ModelManager.models;
+	const n = models.length;
+	const nb = Math.ceil(n*0.1);
+	const best = models.slice(0, nb);
+	const a = best[nb*Math.random()|0];
+	const b = best[nb*Math.random()|0];
+	const args = a.args.map((arg, i) => {
+		if (Math.random() < 0.5) {
+			return arg;
+		} else {
+			return b.args[i];
+		}
+	});
+	ModelManager.add(new Model(args));
+};
+
 const updateLoop = async () => {
+	const models = ModelManager.models;
 	for (;;) {
 		if (!paused) {
-			if (ModelManager.models.length < maxModels) {
-				ModelManager.add(new Model());
+			if (models.length < maxModels) {
+				if (breeding) {
+					breed();
+				} else {
+					ModelManager.add(new Model());
+				}
 			}
 		}
 		ViewVar.render();
@@ -27,7 +50,13 @@ const togglePause = () => {
 };
 
 const refresh = () => {
+	breeding = false;
 	ModelManager.clear();
+};
+
+const startBreeding = () => {
+	breeding = true;
+	ModelManager.models.length >>= 1;
 };
 
 const addVar = (config) => {
@@ -56,6 +85,10 @@ document.querySelector('#pause').addEventListener('click', () => {
 
 document.querySelector('#refresh').addEventListener('click', () => {
 	refresh();
+});
+
+document.querySelector('#breed').addEventListener('click', () => {
+	startBreeding();
 });
 
 updateLoop();
