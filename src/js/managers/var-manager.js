@@ -15,3 +15,7 @@ export const forEach = (fn) => {
 export const indexOf = (modelVar) => {
 	return modelVars.indexOf(modelVar);
 };
+
+export const get = (index) => {
+	return modelVars[index];
+};

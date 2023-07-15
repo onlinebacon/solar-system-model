@@ -53,3 +53,7 @@ div.var canvas {
 .var-template {
 	display: none;
 }
+.error-line {
+	margin-top: 10px;
+	margin-left: 3px;
+}

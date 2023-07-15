@@ -96,5 +96,9 @@ export const add = ({ modelVar, onchange }) => {
 	});
 	const ctx = canvas.getContext('2d');
 	const index = vars.length;
-	vars.push({ modelVar, index, canvas, ctx });
+	vars.push({ modelVar, index, canvas, ctx, updateInputs });
+};
+
+export const updateInputs = () => {
+	vars.forEach(v => v.updateInputs());
 };

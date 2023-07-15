@@ -9,6 +9,9 @@ export default class ModelVar {
 	get range() {
 		return this.max - this.min;
 	}
+	get mid() {
+		return this.min + this.range/2;
+	}
 	rand() {
 		return Math.random()*this.range + this.min;
 	}

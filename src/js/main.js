@@ -18,11 +18,11 @@ const breed = () => {
 	const a = best[nb*Math.random()|0];
 	const b = best[nb*Math.random()|0];
 	const args = a.args.map((arg, i) => {
+		const bArg = b.args[i];
 		if (Math.random() < 0.5) {
-			return arg;
-		} else {
-			return b.args[i];
+			arg = bArg;
 		}
+		return arg + (Math.random() - 0.5)*0.1*VarManager.get(i).range;
 	});
 	ModelManager.add(new Model(args));
 };
@@ -65,6 +65,19 @@ const addVar = (config) => {
 	ViewVar.add({ modelVar, onchange: refresh });
 };
 
+const shrinkAll = () => {
+	const model = ModelManager.getBest();
+	VarManager.forEach((v, i) => {
+		let { range } = v;
+		range /= 2;
+		let val = model.args[i];
+		v.min = val - range/2;
+		v.max = val + range/2;
+	});
+	refresh();
+	ViewVar.updateInputs();
+};
+
 addVar({
 	label: 'Latitude',
 	name: 'lat',
@@ -89,6 +102,10 @@ document.querySelector('#refresh').addEventListener('click', () => {
 
 document.querySelector('#breed').addEventListener('click', () => {
 	startBreeding();
+});
+
+document.querySelector('#shrink_all').addEventListener('click', () => {
+	shrinkAll();
 });
 
 updateLoop();
