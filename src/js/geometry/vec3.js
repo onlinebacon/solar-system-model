@@ -54,6 +54,12 @@ export default class Vec3 extends Array {
 			}
 		}
 	}
+	get x() { return this[0]; }
+	set x(val) { this[0] = val; }
+	get y() { return this[1]; }
+	set y(val) { this[1] = val; }
+	get z() { return this[2]; }
+	set z(val) { this[2] = val; }
 	rotX(angle, dst = new Vec3()) {
 		rotVec(this, angle, Z, Y, dst);
 		return dst;
@@ -73,6 +79,12 @@ export default class Vec3 extends Array {
 	len() {
 		const [ x, y, z ] = this;
 		return Math.sqrt(x*x + y*y + z*z);
+	}
+	add([ x, y, z ], dst = new Vec3()) {
+		dst[0] = this[0] + x;
+		dst[1] = this[1] + y;
+		dst[2] = this[2] + z;
+		return dst;
 	}
 	sub([ x, y, z ], dst = new Vec3()) {
 		dst[0] = this[0] - x;

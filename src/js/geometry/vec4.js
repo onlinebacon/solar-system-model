@@ -1,3 +1,5 @@
+import Vec3 from './vec3.js';
+
 const tempArr = new Array(4).fill(0);
 
 const copy = (src, dst) => {
@@ -63,5 +65,8 @@ export default class Vec4 extends Array {
 	mulMat(mat, dst = new Vec4()) {
 		mulVecMat(this, mat, dst);
 		return dst;
+	}
+	xyz() {
+		return new Vec3(this);
 	}
 }
