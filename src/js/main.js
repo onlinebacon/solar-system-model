@@ -79,17 +79,17 @@ const shrinkAll = () => {
 };
 
 addVar({
-	label: 'Latitude',
-	name: 'lat',
-	min: -90,
-	max: 90,
+	label: 'Earth pos a',
+	name: 'epa',
+	min: 0,
+	max: 1,
 });
 
 addVar({
-	label: 'Longitude',
-	name: 'lon',
-	min: -180,
-	max: 180,
+	label: 'Earth pos b',
+	name: 'epb',
+	min: 0,
+	max: 1,
 });
 
 document.querySelector('#pause').addEventListener('click', () => {
